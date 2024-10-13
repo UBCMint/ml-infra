@@ -29,9 +29,9 @@ class DataIngestionConfig:
     RAW_DATA_DIR : str = os.path.join(DATA_DIR, "raw")
     os.makedirs(RAW_DATA_DIR, exist_ok=True)
     
-    # creates processed data directory
-    PROCESSED_DATA_DIR : str = os.path.join(DATA_DIR, "processed")
-    os.makedirs(PROCESSED_DATA_DIR, exist_ok=True)
+    # # creates processed data directory
+    # PROCESSED_DATA_DIR : str = os.path.join(DATA_DIR, "processed")
+    # os.makedirs(PROCESSED_DATA_DIR, exist_ok=True)
     
     RAW_DATA_PATH : str = os.path.join(RAW_DATA_DIR, "sample_raw_data.npz")
 
