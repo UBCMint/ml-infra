@@ -1,0 +1,5 @@
+outs:
+- md5: 7ad55b27a8d54df0607e2e236a64e48c
+  size: 3710290
+  hash: md5
+  path: sample_raw_data.npz
