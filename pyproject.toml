@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ml-infra"
+version = "0.0.1"
+description = "Developing infrastructure and MLOps tools for MOSS."
+authors = [
+    {name = "UBC MINT", email = "mintbestubc@gmail.com"}
+]
+
+[tool.setuptools.dynamic]
+dependencies = {file = "requirements.txt"}

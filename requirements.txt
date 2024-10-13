@@ -1,5 +1,8 @@
 numpy
 mlflow
 torch
+torchinfo
 torchvision
+torchmetrics
 mne
+-e .
