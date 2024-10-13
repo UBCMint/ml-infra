@@ -7,12 +7,11 @@
 #   > Copyright the MNE-Python contributors.
 import os
 import numpy as np
-import torch
 
 from mne import Epochs, pick_types
-from mne.channels import make_standard_montage
-from mne.datasets import eegbci 
-from mne.io import concatenate_raws, read_raw_edf
+from mne.channels import make_standard_montage # type : ignore
+from mne.datasets import eegbci # type : ignore
+from mne.io import concatenate_raws, read_raw_edf # type : ignore
 
 from dataclasses import dataclass
 
@@ -40,9 +39,9 @@ class DataIngestion:
     def __init__(self):
         self.dataIngestionConfig = DataIngestionConfig()
 
-    def load_and_preprocess_eeg(self, subject=1, runs=[6, 10, 14], tmin=-1.0, tmax=4.0):
+    def load_and_filter_eeg(self, subject=1, runs=[6, 10, 14], tmin=-1.0, tmax=4.0):
         """
-        Load, filter, and preprocess EEG data for motor imagery task (hands vs. feet).
+        Load and filter EEG data for motor imagery task (hands vs. feet).
         """
         try:
             raw_fnames = eegbci.load_data(subject, runs, path=self.dataIngestionConfig.MNE_DATA_DIR)
@@ -67,7 +66,7 @@ class DataIngestion:
                 event_id={"hands": 2, "feet": 3},
                 tmin=tmin,
                 tmax=tmax,
-                proj=True,
+                proj=True,     
                 picks=picks,
                 baseline=None,
                 preload=True,
@@ -85,20 +84,10 @@ class DataIngestion:
 
     def save_eeg_data(self, X, y, output_path):
         """
-        Save preprocessed EEG data to numpy files.
+        Save EEG data to numpy files.
         """
         try:
             np.savez(output_path, X=X, y=y)
             print(f"Data saved to {output_path}")
         except Exception as e:
             raise Exception(e)
-
-if __name__ == "__main__":
-    # Initialize DataIngestion object
-    eeg_data = DataIngestion()
-    
-    # Preprocess EEG data
-    X, X_train, y = eeg_data.load_and_preprocess_eeg()
-    
-    # Save processed data
-    eeg_data.save_eeg_data(X_train, y, eeg_data.dataIngestionConfig.RAW_DATA_PATH)
