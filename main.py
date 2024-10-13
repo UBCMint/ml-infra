@@ -16,7 +16,7 @@ if __name__ == "__main__":
     X_train, y = load_eeg_data(eeg_data.dataIngestionConfig.RAW_DATA_PATH)
     
     # Perform training and evaluation
-    trainer = Training(X_train, y)
+    trainer = Training(X_train, y, eeg_data.dataIngestionConfig.RAW_DATA_PATH + '.dvc')
     trainer.training()
     
     # Comment out to see dashboard

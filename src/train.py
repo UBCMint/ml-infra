@@ -1,7 +1,7 @@
 import os
 import numpy as np
 from datetime import datetime
-import subprocess
+import yaml
 
 import torch
 import torch.optim as optim
@@ -32,6 +32,12 @@ def create_dataloader(X, y):
     batch_size = 16 # Adjust according to the dataset your system capabilities
     
     return DataLoader(dataset, batch_size=batch_size, shuffle=True)
+
+# log the specific data version (DVC hash and path) used for that experiment to MLflow.
+def get_data_version(dvc_file_path):
+    with open(dvc_file_path, 'r') as file:
+        dvc_data = yaml.safe_load(file)
+        return dvc_data['outs'][0]['md5'], dvc_data['outs'][0]['path']
 
 # Define the training loop for mlflow
 def train(model, dataloader, loss_fn, metrics_fn, optimizer, epoch):
@@ -94,9 +100,10 @@ def evaluate(model, dataloader, loss_fn, metrics_fn, epoch):
     print(f"Eval metrics: \nAccuracy: {eval_accuracy:.2f}, Avg loss: {eval_loss:2f} \n")
 
 class Training:
-    def __init__(self, X, y):
+    def __init__(self, X, y, dvc_file_path):
         self.X = X
         self.y = y
+        self.dvc_file_path = dvc_file_path
     
     def training(self):
         input_size = self.X.shape[2]         # Adjust this to match the input size of your EEG data
@@ -119,7 +126,7 @@ class Training:
         # Start an MLflow run
         with mlflow.start_run() as run:
             
-            # define tracking parameters
+            # define tracking parameters and data versions
             params = {
                 "epochs": epochs,
                 "learning_rate": 0.001,
@@ -127,6 +134,7 @@ class Training:
                 "loss_function": loss_criterion.__class__.__name__,
                 "metric_function": metrics_fn.__class__.__name__,
                 "optimizer": "Adam",
+                "data_version" : get_data_version(self.dvc_file_path)
             }
             
             # Log training parameters.
