@@ -17,3 +17,15 @@ class SampleNNClassifier(nn.Module):
         x = torch.relu(self.fc2(x))                 # Pass 2nd layer and then apply relu
         x = self.fc3(x)                             # Final output layer
         return x
+
+# Example NN for testing model versioning
+class SimpleNN(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.fc1 = nn.Linear(4, 10)
+        self.fc2 = nn.Linear(10, 3)
+
+    def forward(self, x):
+        x = torch.relu(self.fc1(x))
+        x = self.fc2(x)
+        return x

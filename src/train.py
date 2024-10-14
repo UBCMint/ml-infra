@@ -11,7 +11,6 @@ from torchmetrics import Accuracy
 
 import mlflow.pytorch
 
-from src.data_ingestion import DataIngestion
 from src.model import SampleNNClassifier
 from src.utils import create_dataloader, get_data_version
 
@@ -50,6 +49,9 @@ class Training:
         # Create DataLoader (using same data for sample)
         train_dataloader = create_dataloader(self.X, self.y, batch_size)
         test_dataloader = create_dataloader(self.X, self.y, batch_size)
+
+        # configure the location for MLflow to stores metadata 
+        # mlflow.set_tracking_uri("file:/" + os.getcwd())
 
         # track experiment using date
         mlflow.set_experiment(datetime.today().strftime('%Y-%m-%d'))
