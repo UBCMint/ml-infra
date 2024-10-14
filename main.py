@@ -1,5 +1,6 @@
 from src.data_ingestion import DataIngestion
-from src.train import Training, load_eeg_data
+from src.train import Training
+from src.utils import load_eeg_data
 
 # Execute the training process
 if __name__ == "__main__":
@@ -19,5 +20,5 @@ if __name__ == "__main__":
     trainer = Training(X_train, y, eeg_data.dataIngestionConfig.RAW_DATA_PATH + '.dvc')
     trainer.training()
     
-    # Comment out to see dashboard
+    # Comment out to see mlflow dashboard
     # subprocess.run(["mlflow", "ui"], check=True)
