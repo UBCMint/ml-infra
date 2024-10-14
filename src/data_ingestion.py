@@ -36,8 +36,12 @@ class DataIngestionConfig:
     RAW_DATA_PATH : str = os.path.join(RAW_DATA_DIR, "sample_raw_data.npz")
 
 class DataIngestion:
-    def __init__(self):
+    def __init__(self, train_tmin, train_tmax):
         self.dataIngestionConfig = DataIngestionConfig()
+        
+        # sample values to test data versioning
+        self.train_tmin = train_tmin
+        self.train_tmax = train_tmax
 
     def load_and_filter_eeg(self, subject=1, runs=[6, 10, 14], tmin=-1.0, tmax=4.0):
         """
@@ -73,7 +77,7 @@ class DataIngestion:
             )
             
             # Crop training data to avoid classification based on early evoked responses
-            epochs_train = epochs.copy().crop(tmin=1.0, tmax=2.0)
+            epochs_train = epochs.copy().crop(tmin=self.train_tmin, tmax=self.train_tmax)
             
             # Labels: 0 for feet, 1 for hands
             labels = epochs.events[:, -1] - 2
