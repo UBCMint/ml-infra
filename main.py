@@ -6,7 +6,7 @@ from src.utils import load_eeg_data, check_dvc_status, update_dvc_data
 if __name__ == "__main__":
     # Initialize DataIngestion object with 
     train_tmin = 1.0
-    train_tmax = 3.0
+    train_tmax = 2.0
     eeg_data = DataIngestion(train_tmin=train_tmin, train_tmax=train_tmax)
     DATA_PATH = eeg_data.dataIngestionConfig.RAW_DATA_PATH
     
