@@ -69,7 +69,7 @@ def update_dvc_data(data_path):
 
         # Commit the changes to Git
         subprocess.run(["git", "add", f"{data_path}.dvc", ".gitignore"], check=True)
-        subprocess.run(["git", "commit", "-m", f"Updated data: {data_path}"], check=True)
+        subprocess.run(["git", "commit", "-m", "Updated data"], check=True)
         print("Data versioning updated locally.")
     
     except subprocess.CalledProcessError as e:

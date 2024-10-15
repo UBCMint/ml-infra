@@ -20,10 +20,10 @@ class SampleNNClassifier(nn.Module):
 
 # Example NN for testing model versioning
 class SimpleNN(nn.Module):
-    def __init__(self):
+    def __init__(self, input_size, num_classes):
         super().__init__()
-        self.fc1 = nn.Linear(4, 10)
-        self.fc2 = nn.Linear(10, 3)
+        self.fc1 = nn.Linear(input_size, 10)
+        self.fc2 = nn.Linear(10, num_classes)
 
     def forward(self, x):
         x = torch.relu(self.fc1(x))

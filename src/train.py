@@ -11,7 +11,7 @@ from torchmetrics import Accuracy
 
 import mlflow.pytorch
 
-from src.model import SampleNNClassifier
+from src.model import SampleNNClassifier, SimpleNN
 from src.utils import create_dataloader, get_data_version
 
 from dataclasses import dataclass
@@ -37,7 +37,7 @@ class Training:
         ##############################################################################
         epochs, batch_size, learning_rate = 10, 16, 0.001
         # Create Model Object
-        model = SampleNNClassifier(input_size=input_size, num_classes=num_classes)
+        model = SimpleNN(input_size=input_size, num_classes=num_classes)
         # Declare Loss Function
         loss_criterion = torch.nn.CrossEntropyLoss().to(device='cpu')
         # Declare metrics function 
