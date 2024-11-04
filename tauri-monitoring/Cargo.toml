@@ -1,0 +1,5 @@
+[dependencies]
+tauri = { version = "1", features = ["api-all"] }
+prometheus = "0.13"
+warp = "0.3"
+tokio = { version = "1", features = ["full"] }
