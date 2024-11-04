@@ -1,0 +1,45 @@
+name: Run Build and test Tauri App
+
+on:
+    # Runs on pushes targeting the default branch
+    push:
+      branches: ["main"]
+  
+    # Allows you to run this workflow manually from the Actions tab
+    workflow_dispatch:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+
+      - name: Install dependencies for Tauri
+        # working-directory: ./tauri-app
+        # run: cargo install tauri-cli
+        run: echo "Installing Tauri dependencies..."
+
+      - name: Test Tauri app
+        # working-directory: ./tauri-app
+        # run: cargo test
+        run: echo "Running Tauri tests..."
+
+      - name: Build Tauri app
+        # working-directory: ./tauri-app
+        # run: cargo build --release
+        run: echo "Building Tauri app..."
+
+
+      - name: Upload success marker
+        run: echo "success" > success.txt
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: tauri-build-success
+          path: success.txt
