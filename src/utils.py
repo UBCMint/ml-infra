@@ -1,3 +1,4 @@
+import os
 import subprocess
 
 import numpy as np
@@ -63,8 +64,12 @@ def update_dvc_data(data_path):
         data_path (str): The path to the data file or directory to be added.
     """
     try:
+        # creates a dvcstore directory 
+        os.makedirs(os.path.join(os.getcwd(), "dvcstore"), exist_ok=True)
+    
         # Stage new data version with DVC
         subprocess.run(["dvc", "add", data_path], check=True)
+        subprocess.run(["dvc", "push"], check=True)
         print(f"Data added to DVC: {data_path}")
 
         # Commit the changes to Git

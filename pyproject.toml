@@ -7,7 +7,8 @@ name = "ml-infra"
 version = "0.0.1"
 description = "Developing infrastructure and MLOps tools for MOSS."
 authors = [
-    {name = "UBC MINT", email = "mintbestubc@gmail.com"}
+    {name = "UBC MINT", email = "mintbestubc@gmail.com"},
+    {name = "Sohbat Sandhu", email = "sohbatsandhu14@gmail.com"}
 ]
 
 [tool.setuptools.dynamic]
