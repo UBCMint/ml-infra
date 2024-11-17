@@ -39,7 +39,7 @@ jobs:
       - name: Upload success marker
         run: echo "success" > success.txt
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: tauri-build-success
           path: success.txt
