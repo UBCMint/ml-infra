@@ -25,7 +25,7 @@ class SimpleNN(nn.Module):
             batch_size (int): The size of batch for training and evaluating model
             learning_rate (float): The learning rate for the optimizer (default is 0.001).
         """
-        super().__init__(input_size, num_classes)
+        super().__init__()
         self.input_size, self.num_classes = input_size, num_classes
         
         # Layers
@@ -57,7 +57,7 @@ class SimpleNN(nn.Module):
         x = self.fc2(x)
         return x
     
-    def training_step(self, batch):
+    def training_step(self, batch, inputs, labels):
         """
         Performs a single training step.
 
@@ -68,12 +68,11 @@ class SimpleNN(nn.Module):
             torch.Tensor: The calculated loss for the batch.
             torch.Tensor: The calculated accuracy for the batch.
         """
-        inputs, labels = batch
         
         # Forward pass
         outputs = self(inputs)[:, -1, :]
         loss = self.loss_criterion(outputs, labels)
-        acc = self.accuracy(outputs, labels)
+        acc = self.metrics_fn(outputs, labels)
         
         # Zero the parameter gradients
         self.optimizer.zero_grad()
@@ -84,7 +83,7 @@ class SimpleNN(nn.Module):
 
         return loss, acc
     
-    def validation_step(self, batch):
+    def validation_step(self, inputs, labels):
         """
         Performs a single validation step.
 
@@ -95,10 +94,9 @@ class SimpleNN(nn.Module):
             torch.Tensor: The calculated loss for model evaluation.
             torch.Tensor: The calculated accuracy for model evaluation.
         """
-        inputs, labels = batch
         outputs = self(inputs)[:, -1, :]
         val_loss = self.loss_criterion(outputs, labels).item()
-        val_acc = self.accuracy(outputs, labels)
+        val_acc = self.metrics_fn(outputs, labels)
         
         return val_loss, val_acc
         
@@ -124,7 +122,7 @@ class SampleNNClassifier(nn.Module):
             batch_size (int): The size of batch for training and evaluating model
             learning_rate (float): The learning rate for the optimizer (default is 0.001).
         """
-        super().__init__(input_size, num_classes)
+        super().__init__()
         self.input_size, self.num_classes = input_size, num_classes
         
         # Layers
@@ -159,7 +157,7 @@ class SampleNNClassifier(nn.Module):
         x = self.fc3(x)                             # Final output layer
         return x
     
-    def training_step(self, batch):
+    def training_step(self, batch, inputs, labels):
         """
         Performs a single training step.
 
@@ -170,12 +168,11 @@ class SampleNNClassifier(nn.Module):
             torch.Tensor: The calculated loss for the batch.
             torch.Tensor: The calculated accuracy for the batch.
         """
-        inputs, labels = batch
-        
+
         # Forward pass
         outputs = self(inputs)[:, -1, :]
         loss = self.loss_criterion(outputs, labels)
-        acc = self.accuracy(outputs, labels)
+        acc = self.metrics_fn(outputs, labels)
         
         # Zero the parameter gradients
         self.optimizer.zero_grad()
@@ -186,7 +183,7 @@ class SampleNNClassifier(nn.Module):
 
         return loss, acc
     
-    def validation_step(self, batch):
+    def validation_step(self, inputs, labels):
         """
         Performs a single validation step.
 
@@ -197,10 +194,9 @@ class SampleNNClassifier(nn.Module):
             torch.Tensor: The calculated loss for model evaluation.
             torch.Tensor: The calculated accuracy for model evaluation.
         """
-        inputs, labels = batch
         outputs = self(inputs)[:, -1, :]
         val_loss = self.loss_criterion(outputs, labels).item()
-        val_acc = self.accuracy(outputs, labels)
+        val_acc = self.metrics_fn(outputs, labels)
         
         return val_loss, val_acc
         

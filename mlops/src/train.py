@@ -9,7 +9,7 @@ from torchmetrics import Accuracy
 
 import mlflow.pytorch
 
-from src.model import SampleNNClassifier, SimpleNN, TestSampleNNClassifier
+from src.model import SampleNNClassifier, SimpleNN
 from src.utils import create_dataloader, get_data_version
 
 from dataclasses import dataclass
@@ -101,9 +101,9 @@ def train(model, dataloader, epoch):
         epoch: an integer, the current epoch number.
     """
     model.train()
-    for batch in enumerate(dataloader):
+    for batch, (inputs, labels) in enumerate(dataloader):
         
-        loss, accuracy = model.training_step(batch)
+        loss, accuracy = model.training_step(batch, inputs, labels)
     
         # if batch % 100 == 0:
         loss, current = loss.item(), batch
@@ -125,8 +125,8 @@ def evaluate(model, dataloader, epoch):
     model.eval()
     eval_loss, eval_accuracy = 0, 0
     with torch.no_grad():
-        for batch in dataloader:
-            loss, acc = model.validation_step(batch)
+        for inputs, labels in dataloader:
+            loss, acc = model.validation_step(inputs, labels)
             eval_loss += loss
             eval_accuracy += acc
 
