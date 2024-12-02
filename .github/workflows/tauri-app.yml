@@ -41,10 +41,10 @@ jobs:
         run: echo "Building Tauri app..."
 
       - name: Upload success marker
-        run: echo "tauri-success" > success.txt
+        run: echo "tauri-build-success" > tauri-build-success.txt
       
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: tauri-build-success
-          path: success.txt
+          path: tauri-build-success.txt

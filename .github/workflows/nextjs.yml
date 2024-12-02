@@ -69,10 +69,10 @@ jobs:
         run: echo "Building Next.js app..."\
       
       - name: Upload success marker
-        run: echo "nextjs-success" > success.txt
+        run: echo "nextjs-build-success" > nextjs-build-success.txt
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: nextjs-build-success
-          path: success.txt
+          path: nextjs-build-success.txt
