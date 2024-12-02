@@ -36,12 +36,12 @@ jobs:
       #       exit 1
       #     fi
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: 'npm'
-          # cache: ${{ steps.detect-package-manager.outputs.manager }}
+      # - name: Setup Node
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: "20"
+      #     cache: 'npm'
+      #     # cache: ${{ steps.detect-package-manager.outputs.manager }}
       
       # - name: Change src directory
       #   run: cd nextjs-app
