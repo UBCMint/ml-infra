@@ -11,7 +11,6 @@ on:
   push:
     tags:
       - 'v*' # Trigger on version tags
-
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
@@ -97,21 +96,6 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-
-        - name: Create GitHub Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref_name }}
-          release_name: Release ${{ github.ref_name }}
-          body: |
-            **New release created!**
-            - Next.js app successfully built.
-            - Tauri app successfully built.
-          draft: false
-          prerelease: false
 
       - name: Create GitHub Release
         id: create_release
