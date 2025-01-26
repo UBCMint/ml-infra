@@ -74,19 +74,19 @@ jobs:
 
       - name: Install dependencies for Tauri
         working-directory: ./tauri-monitoring
-        # run: npm install
-        run: echo "Installing Tauri dependencies..."
+        run: npm install
+        # run: echo "Installing Tauri dependencies..."
   
       - name: Test Tauri app
-        # working-directory: ./tauri-monitoring
-        # run: npm test
-        run: echo "Running Tauri tests..."
+        working-directory: ./tauri-monitoring
+        run: npm test
+        # run: echo "Running Tauri tests..."
 
       - name: Build Tauri app
         working-directory: ./tauri-monitoring
         # run: cargo build --release
-        # run: npm run tauri build
-        run: echo "Building Next.js app..."
+        run: npm run tauri build
+        # run: echo "Building Tauri app..."
   
   release:
     name: create release
