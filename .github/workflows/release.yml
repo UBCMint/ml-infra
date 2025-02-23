@@ -86,6 +86,11 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y libglib2.0-dev libgtk-3-dev libjavascriptcoregtk-4.1-dev libsoup-3.0-dev libwebkit2gtk-4.1-dev pkg-config
+
+      - name: Ensure linuxdeploy is executable (fuse for AppImages)
+        run: |
+          sudo apt install -y fuse
+          chmod +x /home/runner/work/ml-infra/ml-infra/tauri-monitoring/src-tauri/target/release/bundle/appimage/*.AppImage
   
       - name: Test Tauri app
         working-directory: ./tauri-monitoring
