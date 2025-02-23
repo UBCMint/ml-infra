@@ -57,7 +57,7 @@ jobs:
         run: echo "Linting Next.js app..."
 
       - name: Run Tests for Next.js
-      # working-directory: ./nextjs-app
+        # working-directory: ./nextjs-app
         # run: npm test
         run: echo "Running Next.js tests..."
 
@@ -72,26 +72,6 @@ jobs:
         with:
           toolchain: stable
 
-      - name: Install System Dependencies
-        run: |
-          sudo apt update
-          sudo apt install -y \
-            libgtk-3-dev \
-            libglib2.0-dev \
-            libgobject-2.0-dev \
-            libgio2.0-cil-dev \
-            webkit2gtk-4.0 \
-            libappindicator3-dev \
-            librsvg2-dev \
-            pkg-config \
-            curl \
-            build-essential \
-            cmake \
-            libcairo2-dev \
-            libatk1.0-dev \
-            libpango1.0-dev \
-            libgdk-pixbuf2.0-dev
-
       - name: Install dependencies for Tauri
         working-directory: ./tauri-monitoring
         run: npm install
@@ -99,6 +79,15 @@ jobs:
 
       - name: Update Cargo Dependencies
         run: cargo update
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y libglib2.0-dev libgtk-3-dev libgobject-2.0-dev libgio2.0-cil-dev pkg-config
+
+      - name: check PKG_CONFIG_PATH manually
+        working-directory: ./tauri-monitoring
+        run: pkg-config --modversion glib-2.0
   
       - name: Test Tauri app
         working-directory: ./tauri-monitoring
