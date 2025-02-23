@@ -85,12 +85,7 @@ jobs:
         working-directory: ./tauri-monitoring
         run: |
           sudo apt update
-          sudo apt install -y libglib2.0-dev libgtk-3-dev libjavascriptcoregtk-4.1-dev libsoup-3.0-dev libwebkit2gtk-4.1-dev pkg-config
-
-      - name: Ensure linuxdeploy is executable (fuse for AppImages)
-        working-directory: ./tauri-monitoring
-        run: |
-          sudo apt install -y fuse
+          sudo apt install -y libglib2.0-dev libgtk-3-dev libjavascriptcoregtk-4.1-dev libsoup-3.0-dev libwebkit2gtk-4.1-dev pkg-config fuse
   
       - name: Test Tauri app
         working-directory: ./tauri-monitoring
@@ -102,6 +97,16 @@ jobs:
         # run: cargo build --release
         run: npm run tauri build
         # run: echo "Building Tauri app..."
+
+      - name: Make linuxdeploy Executable
+        working-directory: ./tauri-monitoring
+        run: chmod +x linuxdeploy-x86_64.AppImage
+
+      - name: Run Debugging Steps
+        working-directory: ./tauri-monitoring
+        run: |
+          ./linuxdeploy-x86_64.AppImage --version
+          ./linuxdeploy-x86_64.AppImage --appdir AppDir
   
   release:
     name: create release
