@@ -78,7 +78,7 @@ jobs:
         # run: echo "Installing Tauri dependencies..."
 
       - name: Update Cargo Dependencies
-        working-directory: ./tauri-monitoring
+        working-directory: ./tauri-monitoring/src-tauri
         run: cargo update
 
       - name: Install System Dependencies
