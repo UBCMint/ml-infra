@@ -92,21 +92,15 @@ jobs:
         # run: npm test
         run: echo "Running Tauri tests..."
 
-      - name: Build Tauri app
+      - name: Fix linuxdeploy execution
+        working-directory: ./tauri-monitoring
+        run: chmod +x ./src-tauri/target/release/bundle/appimage/linuxdeploy-x86_64.AppImage
+
+      - name: Build Tauri app (with verbose)
         working-directory: ./tauri-monitoring
         # run: cargo build --release
-        run: npm run tauri build
+        run: npm run tauri build --verbose
         # run: echo "Building Tauri app..."
-
-      - name: Make linuxdeploy Executable
-        working-directory: ./tauri-monitoring
-        run: chmod +x linuxdeploy-x86_64.AppImage
-
-      - name: Run Debugging Steps
-        working-directory: ./tauri-monitoring
-        run: |
-          ./linuxdeploy-x86_64.AppImage --version
-          ./linuxdeploy-x86_64.AppImage --appdir AppDir
   
   release:
     name: create release
