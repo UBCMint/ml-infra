@@ -91,7 +91,6 @@ jobs:
         working-directory: ./tauri-monitoring
         run: |
           sudo apt install -y fuse
-          chmod +x /home/runner/work/ml-infra/ml-infra/tauri-monitoring/src-tauri/target/release/bundle/appimage/*.AppImage
   
       - name: Test Tauri app
         working-directory: ./tauri-monitoring
