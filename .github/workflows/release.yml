@@ -92,10 +92,6 @@ jobs:
         # run: npm test
         run: echo "Running Tauri tests..."
 
-      - name: Fix linuxdeploy execution
-        working-directory: ./tauri-monitoring
-        run: chmod +x ./src-tauri/target/release/bundle/appimage/linuxdeploy-x86_64.AppImage
-
       - name: Build Tauri app (with verbose)
         working-directory: ./tauri-monitoring
         # run: cargo build --release
