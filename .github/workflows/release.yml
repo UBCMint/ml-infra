@@ -11,10 +11,6 @@ on:
       - main
   workflow_dispatch:
 
-defaults:
-  run:
-    working-directory: ./tauri-monitoring
-
 jobs:
   publish-tauri:
     permissions:
@@ -33,14 +29,13 @@ jobs:
             args: ''
 
     runs-on: ${{ matrix.platform }}
-    # env:
-    #   working-directory: ./tauri-monitoring
+    env:
+      working-directory: ./tauri-monitoring
     steps:
       - uses: actions/checkout@v4
 
       - name: install dependencies (ubuntu only)
         if: matrix.platform == 'ubuntu-latest' # This must match the platform value defined above.
-        working-directory: ${{env.working-directory}}
         run: |
           sudo apt-get update
           sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
@@ -50,7 +45,7 @@ jobs:
         with:
           node-version: lts/*
           cache: 'npm'
-          # cache-dependency-path: ${{env.working-directory}}
+          cache-dependency-path: ./tauri-monitoring/package.json
 
       - name: install Rust stable
         uses: dtolnay/rust-toolchain@stable # Set this to dtolnay/rust-toolchain@nightly
@@ -61,20 +56,20 @@ jobs:
       - name: Rust cache
         uses: swatinem/rust-cache@v2
         with:
-          workspaces: './tauri-monitoring/src-tauri -> target'
+          workspaces: './tauri-monitoring/src-tauri -> ./tauri-monitoring/src-tauri/target'
 
       - name: Install dependencies
-        # working-directory: ${{env.working-directory}}
-        # If you don't have `beforeBuildCommand` configured you may want to build your frontend here too.
+        working-directory: ${{env.working-directory}}
+        # WIthout `beforeBuildCommand` configured, build frontend here.
         run: npm install
 
       - name: Test Tauri app
-        # working-directory: ${{env.working-directory}}
+        working-directory: ${{env.working-directory}}
         # run: npm test
         run: echo "Running Tauri tests..."
 
       - name: Build Tauri app (with verbose)
-        # working-directory: ${{env.working-directory}}
+        working-directory: ${{env.working-directory}}
         # run: cargo build --release
         # run: npm run tauri build --verbose
         run: echo "Building Tauri app..."
@@ -83,6 +78,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          projectPath: ./tauri-monitoring
           tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version.
           releaseName: 'App v__VERSION__'
           releaseBody: 'See the assets to download this version and install.'
