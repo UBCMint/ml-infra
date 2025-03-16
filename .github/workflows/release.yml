@@ -71,13 +71,13 @@ jobs:
       - name: Build Tauri app (with verbose)
         working-directory: ${{env.working-directory}}
         # run: cargo build --release
-        run: npm run tauri build ${{ matrix.args }}
+        run: npm run tauri build
       
       - name: Upload Tauri Binaries (for Windows, macOS, Linux)
         uses: actions/upload-artifact@v4
         with:
           name: tauri-binaries-${{ matrix.platform }}
-          path: dir2/src-tauri/target/release/bundle/**/*
+          path: ./tauri-monitoring/src-tauri/target/release/bundle/**/*
 
       - name: Publish Release with Binaries
         id: create_release
