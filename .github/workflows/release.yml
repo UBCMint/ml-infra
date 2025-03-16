@@ -12,8 +12,8 @@ on:
   workflow_dispatch:
 
 defaults:
- run:
-  working-directory: ./tauri-monitoring
+  run:
+    working-directory: ./tauri-monitoring
 
 jobs:
   publish-tauri:
