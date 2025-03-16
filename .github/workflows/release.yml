@@ -76,7 +76,7 @@ jobs:
       - name: Upload Tauri Binaries (for Windows, macOS, Linux)
         uses: actions/upload-artifact@v4
         with:
-          name: tauri-binaries-${{ matrix.platform }}
+          name: tauri-binaries-${{ matrix.platform }}-${{ github.run_id }}
           path: ./tauri-monitoring/src-tauri/target/release/bundle/**/*
 
       - name: Publish Release with Binaries
