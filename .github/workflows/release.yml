@@ -13,8 +13,6 @@ on:
 
 jobs:
   publish-tauri:
-    env:
-      working-directory: ./tauri-monitoring
     permissions:
       contents: write
     strategy:
@@ -31,6 +29,8 @@ jobs:
             args: ''
 
     runs-on: ${{ matrix.platform }}
+    env:
+      working-directory: ./tauri-monitoring
     steps:
       - uses: actions/checkout@v4
 
