@@ -21,7 +21,7 @@ jobs:
         include:
           - platform: 'macos-latest' # for Arm based macs (M1 and above).
             args: '--target aarch64-apple-darwin'
-          - platform: 'macos-latest' # for Intel based macs.
+          - platform: 'macos-13' # for Intel based macs.
             args: '--target x86_64-apple-darwin'
           - platform: 'ubuntu-latest'
             args: ''
@@ -83,16 +83,13 @@ jobs:
           tagName: v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version.
           releaseName: 'v__VERSION__'
           releaseBody: 'See the assets to download this version and install.'
-          releaseDraft: true
+          releaseDraft: false
           prerelease: false
           args: ${{ matrix.args }}
-          includeDebug: true
-          includeUpdaterJson: true
 
-      - name: Upload Tauri Binaries (for Windows, macOS, Linux)
-        uses: actions/upload-artifact@v4
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_name: tauri-app-${{ matrix.platform }}-${{ github.run_id }}.zip
-          asset_path: ./tauri-monitoring/src-tauri/target/release/bundle/**/*
-          asset_content_type: application/zip
+      # - name: Upload Tauri Binaries (for Windows, macOS, Linux)
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: TauriInfra-${{ matrix.platform }}.zip
+      #     path: ./tauri-monitoring/src-tauri/target/release/bundle/**/*
+      #     asset_content_type: application/zip
