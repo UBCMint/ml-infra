@@ -13,6 +13,8 @@ on:
 
 jobs:
   publish-tauri:
+    env:
+      working-directory: ./tauri-monitoring
     permissions:
       contents: write
     strategy:
@@ -55,17 +57,15 @@ jobs:
         with:
           workspaces: './tauri-monitoring/src-tauri -> target'
 
-      - name: Install frontend dependencies
+      - name: Install dependencies
         # If you don't have `beforeBuildCommand` configured you may want to build your frontend here too.
         run: npm install
 
       - name: Test Tauri app
-        working-directory: ./tauri-monitoring
         # run: npm test
         run: echo "Running Tauri tests..."
 
       - name: Build Tauri app (with verbose)
-        working-directory: ./tauri-monitoring
         # run: cargo build --release
         # run: npm run tauri build --verbose
         run: echo "Building Tauri app..."
