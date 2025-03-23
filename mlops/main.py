@@ -2,7 +2,12 @@ from src.data_ingestion import DataIngestion, DataIngestionConfig
 from src.train import Training
 from src.utils import load_eeg_data, check_dvc_status, update_dvc_data
 
-# Execute the training process
+import numpy as np
+
+# import the models to be declared
+from src.model import SampleNNClassifier, SimpleNN
+
+# Execute the training process 
 if __name__ == "__main__":
     # data replaced manually (ensure data is named "sample_raw_data.npz") and in a numpy file
     manual_ingestion = False
@@ -35,10 +40,37 @@ if __name__ == "__main__":
     # Load the saved raw data artifact
     X_train, y = load_eeg_data(DATA_PATH)
     
-    # Perform training and evaluation
+    # Track the DVC file path
     DVC_FILE_PATH = DATA_PATH + '.dvc'
-    trainer = Training(X_train, y, DVC_FILE_PATH)
-    trainer.training()
+    
+    input_size = X_train.shape[2]         # Adjust this to match the input size of your EEG data
+    num_classes = len(np.unique(y))       # Adjust to the number of classes in your dataset
+    
+    ##############################################################################
+        # MODELS
+        # declare the models in list format that need to be run on the data
+    models = [
+        SampleNNClassifier(
+            input_size=input_size, 
+            num_classes=num_classes, 
+            epochs=10, 
+            batch_size=16, 
+            learning_rate=0.001
+        ),
+        SimpleNN(
+            input_size=input_size, 
+            num_classes=num_classes, 
+            epochs=10, 
+            batch_size=16, 
+            learning_rate=0.003
+        )
+    ]
+    ##############################################################################
+    
+    # Run models on data
+    for model in models:
+        trainer = Training(X_train, y, DVC_FILE_PATH)
+        trainer.training()
     
     # Comment out to see mlflow dashboard
     # subprocess.run(["mlflow", "ui"], check=True)

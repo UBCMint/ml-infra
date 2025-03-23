@@ -14,7 +14,9 @@ class SimpleNN(nn.Module):
         accuracy (torchmetrics.Metric): The accuracy metric for evaluating the model.
         learning_rate (float): The learning rate for the optimizer.
     """
-    def __init__(self, input_size, num_classes, epochs, batch_size, learning_rate):
+    def __init__(
+        self, input_size : int, num_classes : int, epochs : int, batch_size : int, learning_rate : float
+    ):
         """
         Initializes the SimpleNN.
 
@@ -111,7 +113,9 @@ class SimpleNN(nn.Module):
 
 # Inherits from the base class of all neural networks in PyTorch
 class SampleNNClassifier(nn.Module):
-    def __init__(self, input_size, num_classes, epochs, batch_size, learning_rate):
+    def __init__(
+        self, input_size : int, num_classes : int, epochs : int, batch_size : int, learning_rate : float
+    ):
         """
         Initializes the SampleNNClassifier.
 
