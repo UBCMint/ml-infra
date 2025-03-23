@@ -21,7 +21,7 @@ class TrainingConfig:
     os.makedirs(MODELS_DIR, exist_ok=True)
 
 class Training:
-    def __init__(self, X : np.ndarry, y: np.ndarry, dvc_file_path : str, model : torch.nn.Module):
+    def __init__(self, X, y, dvc_file_path : str, model : torch.nn.Module):
         self.X = X
         self.y = y
         self.MODEL_PATH = TrainingConfig()
