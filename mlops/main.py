@@ -14,7 +14,7 @@ if __name__ == "__main__":
     
     # Initialize DataIngestion object with training time (tmin and tmax) for testing dvc
     train_tmin = 1.0
-    train_tmax = 3.0
+    train_tmax = 2.0
     
     eeg_data = None
     # DATA_PATH = None
@@ -69,7 +69,7 @@ if __name__ == "__main__":
     
     # Run models on data
     for model in models:
-        trainer = Training(X_train, y, DVC_FILE_PATH)
+        trainer = Training(X_train, y, DVC_FILE_PATH, model)
         trainer.training()
     
     # Comment out to see mlflow dashboard

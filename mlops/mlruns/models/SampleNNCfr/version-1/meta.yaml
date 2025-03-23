@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1742750101432
+current_stage: None
+description: ''
+last_updated_timestamp: 1742750101432
+name: SampleNNCfr
+run_id: 707a14f2a5694bbc96a56fe2498224a8
+run_link: ''
+source: file:///Users/sohbatsandhu/Downloads/ml-infra/mlops/mlruns/775649874024534115/707a14f2a5694bbc96a56fe2498224a8/artifacts/model
+status: READY
+status_message: null
+storage_location: file:///Users/sohbatsandhu/Downloads/ml-infra/mlops/mlruns/775649874024534115/707a14f2a5694bbc96a56fe2498224a8/artifacts/model
+user_id: null
+version: 1
