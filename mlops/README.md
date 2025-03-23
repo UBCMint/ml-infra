@@ -35,9 +35,18 @@ $ pip install -r requirements.txt
 
 ## Workflow
 
+`main.py` file consists of the main code that can be tweaked by the deep learing team to use the mlops tool effectively.
+
+
 ### Data Ingestion
 
 The data can be ingested into the system manually or through an script that downloads the data from an MNE dataset.
+
+![image](img/main_py.png)
+
+All the models declared as classes in the `model.py` file using the model workflow mentioned in the next section  can be run on the ingested data.
+
+![image](img/main_py_model.png)
 
 ### Model Workflow
 
@@ -155,7 +164,7 @@ class DocNN(nn.Module):
 
 #### Running the script for ML jobs
 
-The script uses the MLflow Tracking API. For instance, run from the root directory of your workspace:
+The script uses the MLflow Tracking API. For instance, run from the mlops directory of your workspace:
 ```
 python main.py
 ```
